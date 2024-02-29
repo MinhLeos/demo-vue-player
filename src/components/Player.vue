@@ -64,10 +64,10 @@ function onProviderChange(event: MediaProviderChangeEvent) {
 function onCanPlay(event: MediaCanPlayEvent) {
   // ...
   console.log('event', event);
-  if (props.isAutoPlay) {
-    $player.value!.muted = true;
-    $player.value?.play();
-  }
+//   if (props.isAutoPlay) {
+//     $player.value!.muted = true;
+//     $player.value?.play();
+//   }
 //   props.isAutoPlay && $player.value?.play();
 
 }
@@ -99,6 +99,7 @@ function changeSource(type: string) {
 
 <template>
   <media-player
+    :autoplay="props.isAutoPlay"
     class="player"
     title="Sprite Fight"
     :src="$src"
