@@ -64,7 +64,12 @@ function onProviderChange(event: MediaProviderChangeEvent) {
 function onCanPlay(event: MediaCanPlayEvent) {
   // ...
   console.log('event', event);
-  props.isAutoPlay && $player.value?.play();
+  if (props.isAutoPlay) {
+    $player.value!.muted = true;
+    $player.value?.play();
+  }
+//   props.isAutoPlay && $player.value?.play();
+
 }
 
 function changeSource(type: string) {
