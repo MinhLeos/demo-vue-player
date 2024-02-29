@@ -18,6 +18,13 @@ import { onMounted, ref } from 'vue';
 
 import { textTracks } from '../assets/tracks';
 
+const props = defineProps({
+  isAutoPlay: {
+    type: Boolean,
+    default: () => false,
+  }
+})
+
 const $player = ref<MediaPlayerElement>(),
   $src = ref('');
 
@@ -56,6 +63,8 @@ function onProviderChange(event: MediaProviderChangeEvent) {
 // We can listen for the `can-play` event to be notified when the player is ready.
 function onCanPlay(event: MediaCanPlayEvent) {
   // ...
+  console.log('event', event);
+  props.isAutoPlay && $player.value?.play();
 }
 
 function changeSource(type: string) {

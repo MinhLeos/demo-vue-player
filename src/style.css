@@ -14,3 +14,8 @@
 *:not(:defined) {
   opacity: 0;
 }
+
+body {
+    max-width: 1440px;
+    margin: 50px auto;
+}

@@ -4,4 +4,7 @@ import Player from './components/Player.vue'
 
 <template>
   <Player/>
+  <div>---------------------------------------------------------------</div>
+  <div>Auto Play</div>
+  <Player isAutoPlay/>
 </template>
