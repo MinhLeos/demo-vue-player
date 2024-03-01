@@ -25,11 +25,7 @@ const props = defineProps({
   }
 })
 
-const $player = ref<MediaPlayerElement>(),
-  $src = ref('');
-
-// Initialize src.
-changeSource('hls');
+const $player = ref<MediaPlayerElement>()
 
 onMounted(() => {
   /**
@@ -43,8 +39,10 @@ onMounted(() => {
    * </media-provider>
    * ```
    */
-  for (const track of textTracks) $player.value!.textTracks.add(track);
-  // console.log('$player.value!.textTracks', $player.value!.textTracks)
+  
+//   for (const track of textTracks) $player.value!.textTracks.add(track);
+  console.log('$player.value!.textTracks', $player.value!.textTracks);
+
   // Subscribe to state updates - you can connect them to Vue refs if needed.
   return $player.value!.subscribe(({ paused, viewType }) => {
     console.log('is paused?', '->', paused);
@@ -64,37 +62,9 @@ function onProviderChange(event: MediaProviderChangeEvent) {
 function onCanPlay(event: MediaCanPlayEvent) {
   // ...
   console.log('event', event);
-//   if (props.isAutoPlay) {
-//     $player.value!.muted = true;
-//     $player.value?.play();
-//   }
-//   props.isAutoPlay && $player.value?.play();
 
 }
 
-function changeSource(type: string) {
-  const muxPlaybackId = 'VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU';
-  switch (type) {
-    case 'audio':
-      $src.value = 'https://media-files.vidstack.io/sprite-fight/audio.mp3';
-      break;
-    case 'video':
-      $src.value = `https://d2zihajmogu5jn.cloudfront.net/elephantsdream/hls/ed_hd.m3u8`;
-      //   $src.value = `https://stream.mux.com/${muxPlaybackId}/low.mp4`;
-      break;
-    case 'hls':
-      //   $src.value = `https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU.m3u8`;
-      $src.value = `https://d2zihajmogu5jn.cloudfront.net/elephantsdream/hls/ed_hd.m3u8`;
-      //   $src.value = `https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8`;
-      break;
-    case 'youtube':
-      $src.value = 'youtube/_cMxraX_5RE';
-      break;
-    case 'vimeo':
-      $src.value = 'vimeo/640499893';
-      break;
-  }
-}
 </script>
 
 <template>
@@ -102,7 +72,7 @@ function changeSource(type: string) {
     :autoplay="props.isAutoPlay"
     class="player"
     title="Sprite Fight"
-    :src="$src"
+    src="https://d2zihajmogu5jn.cloudfront.net/elephantsdream/hls/ed_hd.m3u8"
     crossorigin
     playsinline
     @provider-change="onProviderChange"
@@ -123,14 +93,6 @@ function changeSource(type: string) {
     />
   </media-player>
 </template>
-
-<!-- <div class="src-buttons">
-    <button @click="changeSource('audio')">Audio</button>
-    <button @click="changeSource('video')">Video</button>
-    <button @click="changeSource('hls')">HLS</button>
-    <button @click="changeSource('youtube')">YouTube</button>
-    <button @click="changeSource('vimeo')">Vimeo</button>
-  </div> -->
 
 <style scoped>
 .player {
